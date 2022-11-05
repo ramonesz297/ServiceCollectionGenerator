@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<RootNamespace>ServiceCollectionGenerator</RootNamespace>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Authors>ramonesz297</Authors>
+		<Product>ServiceCollectionGenerator</Product>
+		<CommonTags>dotnet;DI</CommonTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageId>ServiceCollectionGenerator</PackageId>
+		<Title>Source generator for IServiceCollection</Title>
+		<PackageTags>DI;Dependency Injection;Helpers;Source generator;gen</PackageTags>
+		<Version>1.0.3</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!--<ProjectReference Include="..\gen\ServiceCollectionGenerator.csproj" ReferenceOutputAssembly="false" />-->
+		<!--<ProjectReference Include="..\gen\ServiceCollectionGenerator.Roslyn.4.4.csproj" ReferenceOutputAssembly="false" />-->
+	</ItemGroup>
+
+	<ItemGroup Condition="$(Configuration)=='Release'">
+		<FileToMove Include="..\gen\bin\$(Configuration)\netstandard2.0\ServiceCollectionGenerator.Roslyn.4.4.dll" />
+		<FileToRename Include="..\gen\bin\$(Configuration)\netstandard2.0\roslyn4.4\ServiceCollectionGenerator.Roslyn.4.4.dll" />
+	</ItemGroup>
+
+	<Target Name="MoveAndRenameRoslyn44" AfterTargets="Build" Condition="$(Configuration)=='Release'">
+		<Move SourceFiles="@(FileToMove)" DestinationFolder="..\gen\bin\$(Configuration)\netstandard2.0\roslyn4.4\" OverwriteReadOnlyFiles="true" />
+		<Copy SourceFiles="@(FileToRename)" DestinationFiles="@(FileToRename->Replace('.Roslyn.4.4.dll','.dll'))" />
+	</Target>
+
+	<ItemGroup Label="Package">
+
+		<!-- Include the custom .targets file to check the source generator (.NET 6 is not needed as it guarantees Roslyn 4.x) -->
+		<None Include="ServiceCollectionGenerator.targets" PackagePath="buildTransitive\netstandard2.0" Pack="true" />
+		<None Include="ServiceCollectionGenerator.targets" PackagePath="build\netstandard2.0" Pack="true" />
+
+		<None Include="..\gen\bin\$(Configuration)\netstandard2.0\ServiceCollectionGenerator.dll" PackagePath="analyzers\dotnet\roslyn4.0\cs" Pack="true" Visible="false" />
+		<None Include="..\gen\bin\$(Configuration)\netstandard2.0\roslyn4.4\ServiceCollectionGenerator.dll" PackagePath="analyzers\dotnet\roslyn4.4\cs" Pack="true" Visible="false" />
+	</ItemGroup>
+</Project>

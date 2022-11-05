@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <RoslynApiVersion>4.0.1</RoslynApiVersion>
+    </PropertyGroup>
+    <Import Project="ServiceCollectionGenerator.targets" />
+
+</Project>

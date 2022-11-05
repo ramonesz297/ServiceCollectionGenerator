@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <DefineConstants>$(DefineConstants);ROSLYN4_4_OR_GREATER</DefineConstants>
+        <RoslynApiVersion>4.4.0-2.final</RoslynApiVersion>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <Import Project="ServiceCollectionGenerator.Tests.targets" />
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\gen\ServiceCollectionGenerator.Roslyn.4.4.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
+    </ItemGroup>
+
+</Project>

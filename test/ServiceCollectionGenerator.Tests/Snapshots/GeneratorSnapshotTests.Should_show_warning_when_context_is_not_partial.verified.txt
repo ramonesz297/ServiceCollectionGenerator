@@ -1,0 +1,16 @@
+﻿{
+  Diagnostics: [
+    {
+      Id: SRSCL1000,
+      Title: Service collection context must be 'static partial' class,
+      Severity: Error,
+      WarningLevel: 0,
+      Location: : (4,4)-(8,5),
+      Description: ,
+      HelpLink: ,
+      MessageFormat: Service collection context must be 'static partial' class,
+      Message: Service collection context must be 'static partial' class,
+      Category: ServiceCollectionSourceGen
+    }
+  ]
+}
